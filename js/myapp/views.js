@@ -12,6 +12,8 @@ PersonView = Backbone.View.extend({
 	initialize: function() {
 		console.log("init person view");
 		this.render();
+		_.bindAll(this, 'contentChanged');
+    	this.inputContent = this.$('input.content');
 	},
 
     render:function(){
@@ -19,21 +21,39 @@ PersonView = Backbone.View.extend({
         var template = _.template( $("#person_template").html(), {} );
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
+        // execute the model bindings
+    	Backbone.ModelBinding.bind(this);
         return this;
     },
 
     events : {
-    	"click #next" : "next"
+    	"click #next" : "next",
+    	"change input.content":  "contentChanged"
     },
 
     next : function () {
-    	new AddressView({ el: this.el });
-    }
+    	window.sessionStorage.setItem("person", JSON.stringify(this.model));
+    	var address = new Address();
+    	new AddressView({ el: this.el , model : address});
+    },
+
+    contentChanged: function () {
+    	var input = this.inputContent;
+    	console.log(input);
+    },
+
+    close: function(){
+    	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
+	    this.remove();
+	    this.unbind();
+	    Backbone.ModelBinding.unbind(this);
+	}
 
 });
 
 AddressView = Backbone.View.extend({
 	initialize: function() {
+		console.log(JSON.parse(window.sessionStorage.getItem("person")));
 		console.log("init address view");
 		this.render();
 	},
@@ -43,8 +63,10 @@ AddressView = Backbone.View.extend({
         var template = _.template( $("#address_template").html(), {} );
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
+        // execute the model bindings
+    	Backbone.ModelBinding.bind(this);
         return this;
-    }
+    },
 
 	events : {
     	"click #next" : "next",
@@ -57,7 +79,14 @@ AddressView = Backbone.View.extend({
 
     next : function () {
     	new SummaryView({ el: this.el });
-    }
+    },
+
+    close: function(){
+    	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
+	    this.remove();
+	    this.unbind();
+	    Backbone.ModelBinding.unbind(this);
+	}
 });
 
 SummaryView = Backbone.View.extend({
@@ -71,8 +100,17 @@ SummaryView = Backbone.View.extend({
         var template = _.template( $("#summary_template").html(), {} );
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
+        // execute the model bindings
+    	Backbone.ModelBinding.bind(this);
         return this;
-    }
+    },
+
+    close: function(){
+    	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
+	    this.remove();
+	    this.unbind();
+	    Backbone.ModelBinding.unbind(this);
+	}
 
 });
 
@@ -80,7 +118,8 @@ SummaryView = Backbone.View.extend({
 
 
 document.ready = function () {
-	var person_view = new PersonView({ el: $("#container") });
+	person = new Person();
+	person_view = new PersonView({ el: $("#container") , model : person});
 }
 //var address_view = new AddressView({ el: $("#container") });
 //var summary_view = new SummaryView({ el: $("#container") });
