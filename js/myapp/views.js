@@ -6,14 +6,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-(function (){
-
 PersonView = Backbone.View.extend({
 	initialize: function() {
-		console.log("init person view");
+		this.model = new Person();
 		this.render();
-		_.bindAll(this, 'contentChanged');
-    	this.inputContent = this.$('input.content');
+
 	},
 
     render:function(){
@@ -27,13 +24,12 @@ PersonView = Backbone.View.extend({
     },
 
     events : {
-    	"click #next" : "next",
-    	"change input.content":  "contentChanged"
+    	"click #next" : "next"
     },
 
     next : function () {
     	window.sessionStorage.setItem("person", JSON.stringify(this.model));
-    	var address = new Address();
+    	var address = new Address(JSON.parse(window.sessionStorage.getItem("address")));
     	new AddressView({ el: this.el , model : address});
     },
 
@@ -53,8 +49,7 @@ PersonView = Backbone.View.extend({
 
 AddressView = Backbone.View.extend({
 	initialize: function() {
-		console.log(JSON.parse(window.sessionStorage.getItem("person")));
-		console.log("init address view");
+		this.model = new Address();
 		this.render();
 	},
 
@@ -74,11 +69,18 @@ AddressView = Backbone.View.extend({
     },
 
     back : function () {
-    	new PersonView({ el: this.el });
+    	window.sessionStorage.setItem("address", JSON.stringify(this.model));
+		var person = new Person(JSON.parse(window.sessionStorage.getItem("person")));
+    	new PersonView({ el: this.el , model : person});
     },
 
     next : function () {
-    	new SummaryView({ el: this.el });
+    	window.sessionStorage.setItem("address", JSON.stringify(this.model));
+		var person = JSON.parse(window.sessionStorage.getItem("person"));
+		var address = this.model.toJSON();
+		var summary = _.extend({},person, address);
+		console.log("show sum", summary);
+    	new SummaryView({ el: this.el , model: new Summary(summary) } );
     },
 
     close: function(){
@@ -91,13 +93,14 @@ AddressView = Backbone.View.extend({
 
 SummaryView = Backbone.View.extend({
 	initialize: function() {
-		console.log("init summary view");
+		this.model = new Summary();
 		this.render();
 	},
 
     render:function(){
+    	var model = this.model.toJSON();
 		// Compile the template using underscore
-        var template = _.template( $("#summary_template").html(), {} );
+        var template = _.template( $("#summary_template").html(), model );
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
         // execute the model bindings
@@ -114,14 +117,8 @@ SummaryView = Backbone.View.extend({
 
 });
 
-// creating the views
-
 
 document.ready = function () {
 	person = new Person();
 	person_view = new PersonView({ el: $("#container") , model : person});
-}
-//var address_view = new AddressView({ el: $("#container") });
-//var summary_view = new SummaryView({ el: $("#container") });
 
-}());

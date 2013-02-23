@@ -30,7 +30,7 @@
         <input type="text" id="p_surename"/>
 
         <label for="p_firstname">Vorname</label>
-        <input type="text" id="p_birthday"/>
+        <input type="text" id="p_firstname"/>
 
         <label for="p_birthday">Geburtsdatum</label>
         <input type="text" id="p_birthday"/>
@@ -41,10 +41,48 @@
         <input type="button" id="next" value="Weiter"/>
     </script>
     <script type="text/template" id="summary_template">
+        <label for="p_surename">Name</label>
+        <span class=""> <%= p_surename %> </span>
+
+        <label for="p_firstname">Vorname</label>
+        <span class=""> <%= p_firstname %> </span>
+
+        <label for="p_birthday">Geburtsdatum</label>
+        <span class=""> <%= p_birthday %> </span>
+
+        <label for="p_creditcaardnumber">Kreditkartennummer</label>
+        <span class=""> <%= p_creditcardnumber %> </span>
+
+        <label for="adr_land">Land</label>
+        <span class=""> <%= adr_land %> </span>
+
+        <label for="adr_street">Str. und Hausnummer</label>
+        <span class=""> <%= adr_street %> </span>
+
+        <label for="adr_zipcode">Plz</label>
+        <span class=""> <%= adr_zipcode %> </span>
+
+        <label for="adr_city">Ort</label>
+        <span class=""> <%= adr_city %> </span>
+
+        <label for="adr_livingsince">Wohnhaft seit</label>
+        <span class=""> <%= adr_livingsince %> </span>
+
         <input type="button" id="back" value="Zurück"/>
     </script>
     <script type="text/javascript" src="js/myapp/models.js"></script>
     <script type="text/javascript" src="js/myapp/views.js"></script>
+    <script>
+
+        Backbone.sync = function (method, model, options) {
+            console.log("sync",{"method" : method, "model" : model, "options" : options});
+        }
+
+        document.ready = function () {
+            person_view = new PersonView({ el: $("#container") });
+
+        }
+    </script>
 </head>
 <body>
 	<div id="container"></div>
