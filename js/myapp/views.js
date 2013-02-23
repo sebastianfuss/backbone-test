@@ -9,6 +9,8 @@
 PersonView = Backbone.View.extend({
 	initialize: function() {
 		this.model = new Person();
+		console.log("fetch", this.model);
+		this.model.fetch();
 		this.render();
 
 	},
@@ -31,11 +33,6 @@ PersonView = Backbone.View.extend({
     	window.sessionStorage.setItem("person", JSON.stringify(this.model));
     	var address = new Address(JSON.parse(window.sessionStorage.getItem("address")));
     	new AddressView({ el: this.el , model : address});
-    },
-
-    contentChanged: function () {
-    	var input = this.inputContent;
-    	console.log(input);
     },
 
     close: function(){
@@ -116,9 +113,4 @@ SummaryView = Backbone.View.extend({
 	}
 
 });
-
-
-document.ready = function () {
-	person = new Person();
-	person_view = new PersonView({ el: $("#container") , model : person});
 

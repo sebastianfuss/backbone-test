@@ -73,11 +73,6 @@
     <script type="text/javascript" src="js/myapp/models.js"></script>
     <script type="text/javascript" src="js/myapp/views.js"></script>
     <script>
-
-        Backbone.sync = function (method, model, options) {
-            console.log("sync",{"method" : method, "model" : model, "options" : options});
-        }
-
         document.ready = function () {
             person_view = new PersonView({ el: $("#container") });
 

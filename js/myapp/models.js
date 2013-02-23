@@ -17,6 +17,20 @@ Person = Backbone.Model.extend({
 
     initialize:function(){
 
+    },
+
+    sync : function (method, model, options) {
+    	console.log("sync Person",{method : method, model : model, options: options});
+    	var resp = {};
+    	switch (method) {
+    		case "read" : 
+    			var data = JSON.parse(window.sessionStorage.getItem("person"));
+    			console.log("session data", data);
+    			resp = new Person(data);
+    			break;
+    	}
+    	console.log("out", {"model" : model, "resp" : resp});
+    	options.success(model, resp);
     }
 
 });
