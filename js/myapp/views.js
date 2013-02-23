@@ -10,19 +10,18 @@ PersonView = Backbone.View.extend({
 	initialize: function() {
 		that = this;
 		var model = new Person();
+		_.bindAll(this, 'render', 'close');
 		model.fetch({
 			"success" : function (model) {
 				// im erfolgsfall altes model
 				that.model = model;
-		        _.bindAll(this, 'render', 'close');
-		        this.model.bind('change', this.render);
+		        that.model.bind('change', that.render);
 				that.render();
 			},
 			"error" : function () {
 				// im fehlerfall neues modell
 				that.model = new Person();
-		        _.bindAll(this, 'render', 'close');
-		        this.model.bind('change', this.render);
+		        that.model.bind('change', that.render);
 				that.render();
 			}
 		});
