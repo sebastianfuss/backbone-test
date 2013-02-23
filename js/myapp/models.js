@@ -19,18 +19,39 @@ Person = Backbone.Model.extend({
 
     },
 
+    validation: {
+    	p_firstname: {
+    		required : true,
+    		msg: 'Please enter your firstname'
+    	},
+    	p_surename: {
+    		required : true,
+    		msg: 'Please enter your surename'
+    	},
+    	p_birthday: {
+    		pattern : /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+    		msg: 'Please enter a valid date'
+    	},
+    	p_creditcardnumber: {
+    		length : 16,
+    		msg: 'Please enter a valid 16 digit creditcard number'
+    	}
+	},
+
     sync : function (method, model, options) {
-    	console.log("sync Person",{method : method, model : model, options: options});
     	var resp = {};
     	switch (method) {
     		case "read" : 
     			var data = JSON.parse(window.sessionStorage.getItem("person"));
-    			console.log("session data", data);
-    			resp = new Person(data);
+    			model = new Person(data);
+    			//options.success(model);
+    			break;
+    		case "update" :
+    		case "create" : 
+    			window.sessionStorage.setItem("person", JSON.stringify(model));
     			break;
     	}
-    	console.log("out", {"model" : model, "resp" : resp});
-    	options.success(model, resp);
+    	options.success(model,resp,options);
     }
 
 });
@@ -47,6 +68,24 @@ Address = Backbone.Model.extend({
 
     initialize:function(){
 
+    },
+
+    sync : function (method, model, options) {
+    	console.log("sync address");
+    	var resp = {};
+    	switch (method) {
+    		case "read" : 
+    		console.log("lade address");
+    			var data = JSON.parse(window.sessionStorage.getItem("address"));
+    			model = new Address(data);
+    			break;
+    		case "update" :
+    		case "create" : 
+    			console.log("speichere address");
+    			window.sessionStorage.setItem("address", JSON.stringify(model));
+    			break;
+    	}
+    	options.success(model, resp, options);
     }
 
 });
@@ -55,5 +94,21 @@ Summary = Backbone.Model.extend({
 
 	initialize:function(){
 
+    },
+
+    sync : function (method, model, options) {
+    	var resp = {};
+    	switch (method) {
+    		case "read" : 
+    			var addressdata = JSON.parse(window.sessionStorage.getItem("address"));
+    			var persondata = JSON.parse(window.sessionStorage.getItem("person"));
+    			var data = _.extend({},addressdata, persondata);
+    			model = new Summary(data);
+    			break;
+    		case "update" :
+    		case "create" :
+    			break;
+    	}
+    	options.success(model, resp, options);
     }
 })

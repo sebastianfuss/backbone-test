@@ -8,10 +8,20 @@
 
 PersonView = Backbone.View.extend({
 	initialize: function() {
-		this.model = new Person();
-		console.log("fetch", this.model);
-		this.model.fetch();
-		this.render();
+		that = this;
+		var model = new Person();
+		model.fetch({
+			"success" : function (model) {
+				// im erfolgsfall altes model
+				that.model = model;
+				that.render();
+			},
+			"error" : function () {
+				// im fehlerfall neues modell
+				that.model = new Person();
+				that.render();
+			}
+		});
 
 	},
 
@@ -30,9 +40,15 @@ PersonView = Backbone.View.extend({
     },
 
     next : function () {
-    	window.sessionStorage.setItem("person", JSON.stringify(this.model));
-    	var address = new Address(JSON.parse(window.sessionStorage.getItem("address")));
-    	new AddressView({ el: this.el , model : address});
+    	var that = this;
+    	this.model.save(this.model.toJSON(),{
+    		"success" : function () {
+    			var view = new AddressView({ el: that.el });
+    		},
+    		"error" : function () {
+    			console.error("Fehler beim Speichern");
+    		}
+    	});
     },
 
     close: function(){
@@ -46,8 +62,20 @@ PersonView = Backbone.View.extend({
 
 AddressView = Backbone.View.extend({
 	initialize: function() {
-		this.model = new Address();
-		this.render();
+		that = this;
+		var model = new Address();
+		model.fetch({
+			"success" : function (model) {
+				// im erfolgsfall altes model
+				that.model = model;
+				that.render();
+			},
+			"error" : function () {
+				// im fehlerfall neues modell
+				that.model = new Address();
+				that.render();
+			}
+		});
 	},
 
     render:function(){
@@ -66,18 +94,27 @@ AddressView = Backbone.View.extend({
     },
 
     back : function () {
-    	window.sessionStorage.setItem("address", JSON.stringify(this.model));
-		var person = new Person(JSON.parse(window.sessionStorage.getItem("person")));
-    	new PersonView({ el: this.el , model : person});
+    	var that = this;
+    	this.model.save(this.model.toJSON(), {
+			"success" : function (model) {
+    			new PersonView({ el: that.el } );
+			},
+			"error" : function () {
+    			console.error("Fehler beim Speichern");
+			}
+    	});
     },
 
     next : function () {
-    	window.sessionStorage.setItem("address", JSON.stringify(this.model));
-		var person = JSON.parse(window.sessionStorage.getItem("person"));
-		var address = this.model.toJSON();
-		var summary = _.extend({},person, address);
-		console.log("show sum", summary);
-    	new SummaryView({ el: this.el , model: new Summary(summary) } );
+    	var that = this;
+    	this.model.save(this.model.toJSON(), {
+			"success" : function (model) {
+    			new SummaryView({ el: that.el } );
+			},
+			"error" : function () {
+    			console.error("Fehler beim Speichern");
+			}
+    	});
     },
 
     close: function(){
@@ -90,8 +127,20 @@ AddressView = Backbone.View.extend({
 
 SummaryView = Backbone.View.extend({
 	initialize: function() {
-		this.model = new Summary();
-		this.render();
+		that = this;
+		var model = new Summary();
+		model.fetch({
+			"success" : function (model) {
+				// im erfolgsfall altes model
+				that.model = model;
+				that.render();
+			},
+			"error" : function () {
+				// im fehlerfall neues modell
+				that.model = new Summary();
+				that.render();
+			}
+		});
 	},
 
     render:function(){
@@ -105,6 +154,14 @@ SummaryView = Backbone.View.extend({
         return this;
     },
 
+	events : {
+    	"click #back" : "back"
+    },
+
+    back : function () {
+    	new AddressView({ el: that.el } );
+    },
+
     close: function(){
     	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
 	    this.remove();
@@ -113,3 +170,39 @@ SummaryView = Backbone.View.extend({
 	}
 
 });
+
+AppView = function () {
+ 
+   	this.showView = function(view) {
+	    if (this.currentView){
+	      this.currentView.close();
+	    }
+	 
+	    this.currentView = view;
+	    this.currentView.render();
+	 
+	    $("#content").html(this.currentView.el);
+	 }
+}
+
+Router = Backbone.Router.extend({
+  routes: {
+    "person": "showPerson",
+    "address" : "showAddress",
+    "summary" : "showSummary"
+  },
+ 
+  showPerson: function(){
+    var view = new PersonView();
+    this.appView.showView(view);
+  },
+  showAddress: function(){
+    var view = new AddressView();
+    this.appView.showView(view);
+  },
+  showSummary: function(){
+    var view = new SummaryView();
+    this.appView.showView(view);
+  }
+});
+
