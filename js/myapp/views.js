@@ -35,6 +35,24 @@ PersonView = Backbone.View.extend({
         this.$el.html( template );
         // execute the model bindings
     	Backbone.ModelBinding.bind(this);
+    	// validation
+    	Backbone.Validation.bind(this,{
+    		selector : "modelattr",
+    		valid: function(view, attr, selector) {
+		        view.$('[' + selector + '="' + attr + '"]')
+		          .parentsUntil("control-group").removeClass('error')
+		          .removeAttr('data-error');
+		    },
+
+		    invalid: function(view, attr, error, selector) {
+		        view.$('[' + selector + '="' + attr + '"]')
+		          .parentsUntil("control-group").addClass('error')
+		          .attr('data-error', error);
+		    }
+    	});
+
+    	this.model.on("validated:valid", this.valid, this);
+    	this.model.on("validated:invalid", this.invalid, this);
 
         return this;
     },
@@ -45,20 +63,32 @@ PersonView = Backbone.View.extend({
 
     next : function () {
     	var that = this;
-    	this.model.save(this.model.toJSON(),{
-    		"success" : function () {
-    			var view = new AddressView({ el: that.el });
-    		},
-    		"error" : function () {
-    			console.error("Fehler beim Speichern");
-    		}
-    	});
+    	// is the model valid?
+    	if (this.model.isValid) {
+	    	this.model.save(this.model.toJSON(),{
+	    		"success" : function () {
+	    			var view = new AddressView({ el: that.el });
+	    		},
+	    		"error" : function () {
+	    			console.error("Fehler beim Speichern");
+	    		}
+	    	});
+	    } else {
+	    	// if not we have to output the validation result
+
+	    }
+    },
+
+    valid : function () {
+    	this.$(".alert").hide();
+    	this.$(".alert-error").fadeIn();
     },
 
     close: function(){
     	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
 	    this.remove();
 	    this.unbind();
+	    Backbone.Validation.unbind(view);
 	    Backbone.ModelBinding.unbind(this);
 	}
 
@@ -90,6 +120,8 @@ AddressView = Backbone.View.extend({
         this.$el.html( template );
         // execute the model bindings
     	Backbone.ModelBinding.bind(this);
+    	// validation
+    	Backbone.Validation.bind(this);
         return this;
     },
 
@@ -126,6 +158,7 @@ AddressView = Backbone.View.extend({
     	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
 	    this.remove();
 	    this.unbind();
+	    Backbone.Validation.unbind(view);
 	    Backbone.ModelBinding.unbind(this);
 	}
 });

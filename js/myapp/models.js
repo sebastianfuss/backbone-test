@@ -20,19 +20,19 @@ Person = Backbone.Model.extend({
     },
 
     validation: {
-    	p_firstname: {
+    	firstname: {
     		required : true,
     		msg: 'Please enter your firstname'
     	},
-    	p_surename: {
+    	surename: {
     		required : true,
     		msg: 'Please enter your surename'
     	},
-    	p_birthday: {
+    	birthday: {
     		pattern : /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
     		msg: 'Please enter a valid date'
     	},
-    	p_creditcardnumber: {
+    	creditcardnumber: {
     		length : 16,
     		msg: 'Please enter a valid 16 digit creditcard number'
     	}

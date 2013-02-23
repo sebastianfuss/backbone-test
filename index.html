@@ -3,47 +3,91 @@
 <head>
     <title>Hello World</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/underscore.js"></script>
     <script type="text/javascript" src="js/backbone.js"></script>
     <script type="text/javascript" src="js/backbone.modelbinding.js"></script>
     <script type="text/javascript" src="js/backbone-validation.js"></script>
     <script type="text/template" id="address_template">
-        <label for="adr_land">Land</label>
-        <input type="text" id="adr_land" modelAttr="land"/>
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="adr_land">Land</label>
+            <div class="controls">
+                <input type="text" id="adr_land" modelAttr="land" placeholder="Land"/>
+            </div>
+        </div>
 
-        <label for="adr_street">Str. und Hausnummer</label>
-        <input type="text" id="adr_street" modelAttr="street"/>
+        <div class="control-group">
+            <label class="control-label" for="adr_street">Str. und Hausnummer</label>
+            <div class="controls">
+                <input type="text" id="adr_street" modelAttr="street"/>
+            </div>
+        </div>
 
-        <label for="adr_zipcode">Plz</label>
-        <input type="text" id="adr_zipcode" modelAttr="zipcode"/>
+        <div class="control-group">
+            <label class="control-label" for="adr_zipcode">Plz</label>
+            <div class="controls">
+                <input type="text" id="adr_zipcode" modelAttr="zipcode"/>
+            </div>
+        </div>
 
-        <label for="adr_city">Ort</label>
-        <input type="text" id="adr_city" modelAttr="city"/>
+        <div class="control-group">
+            <label class="control-label" for="adr_city">Ort</label>
+            <div class="controls">
+                <input type="text" id="adr_city" modelAttr="city"/>
+            </div>
+        </div>
 
-        <label for="adr_livingsince">Wohnhaft seit</label>
-        <input type="text" id="adr_livingsince" modelAttr="livingsince"/>
+
+        <div class="control-group">
+            <label class="control-label" for="adr_livingsince">Wohnhaft seit</label>
+            <div class="controls">
+                <input type="text" id="adr_livingsince" modelAttr="livingsince"/>
+            </div>
+        </div>
 
         <input type="button" id="back" value="Zurück"/>
         <input type="button" id="next" value="Weiter"/>
+    </form>
     </script>
     <script type="text/template" id="person_template">
-        <label for="p_surename">Name</label>
-        <input type="text" id="p_surename" modelAttr="surename"/>
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="p_surename">Name</label>
+            <div class="controls">
+                <input type="text" id="p_surename" modelAttr="surename" data-error-style="inline"/> <%= surename %>
+                <span class="help-inline"></span>
+            </div>
+        </div>
 
-        <label for="p_firstname">Vorname</label>
-        <input type="text" id="p_firstname" modelAttr="firstname"/>
+        <div class="control-group">
+            <label class="control-label" for="p_firstname">Vorname</label>
+            <div class="controls">
+        <input type="text" id="p_firstname" modelAttr="firstname" data-error-style="inline"/>
+                <span class="help-inline"></span>
 
-        <label for="p_birthday">Geburtsdatum</label>
-        <input type="text" id="p_birthday" modelAttr="birthday"/>
+            </div>
+        </div>
 
-        <label for="p_creditcardnumber">Kreditkartennummer</label>
-        <input type="text" id="p_creditcardnumber" modelAttr="credicardnumber"/>
+        <div class="control-group">
+            <label class="control-label" for="p_birthday">Geburtsdatum</label>
+            <div class="controls">
+        <input type="text" id="p_birthday" modelAttr="birthday" data-error-style="inline"/>
+                <span class="help-inline"></span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="p_creditcardnumber">Kreditkartennummer</label>
+            <div class="controls">
+        <input type="text" id="p_creditcardnumber" modelAttr="creditcardnumber" data-error-style="inline"/>
+                <span class="help-inline"></span>
+            </div>
+        </div>
 
         <input type="button" id="next" value="Weiter"/>
-        <br/>
-        <label for="p_surename">Name</label>
-        <%= surename %>
+    </form>
     </script>
     <script type="text/template" id="summary_template">
         <label for="p_surename">Name</label>
