@@ -9,10 +9,10 @@
 Person = Backbone.Model.extend({
 
 	defaults: {
-		p_birthday: "",
-		p_creditcardnumber: "",
-		p_firstname: "",
-		p_surename: ""
+		birthday: "",
+		creditcardnumber: "",
+		firstname: "",
+		surename: ""
 	},
 
     initialize:function(){
@@ -38,11 +38,11 @@ Person = Backbone.Model.extend({
 Address = Backbone.Model.extend({
 
 	defaults : {
-		adr_city: "",
-		adr_land: "",
-		adr_livingsince: "",
-		adr_street: "",
-		adr_zipcode: ""
+		city: "",
+		land: "",
+		livingsince: "",
+		street: "",
+		zipcode: ""
 	},
 
     initialize:function(){

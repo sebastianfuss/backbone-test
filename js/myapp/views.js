@@ -11,17 +11,21 @@ PersonView = Backbone.View.extend({
 		this.model = new Person();
 		console.log("fetch", this.model);
 		this.model.fetch();
-		this.render();
+        _.bindAll(this, 'render', 'close');
+        this.model.bind('change', this.render);
+        this.render();
 
 	},
 
     render:function(){
+        var model = this.model.toJSON();
 		// Compile the template using underscore
-        var template = _.template( $("#person_template").html(), {} );
+        var template = _.template( $("#person_template").html(), model );
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
         // execute the model bindings
     	Backbone.ModelBinding.bind(this);
+
         return this;
     },
 
@@ -51,8 +55,9 @@ AddressView = Backbone.View.extend({
 	},
 
     render:function(){
+        var model = this.model.toJSON();
 		// Compile the template using underscore
-        var template = _.template( $("#address_template").html(), {} );
+        var template = _.template( $("#address_template").html(), model );
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
         // execute the model bindings
@@ -90,7 +95,7 @@ AddressView = Backbone.View.extend({
 
 SummaryView = Backbone.View.extend({
 	initialize: function() {
-		this.model = new Summary();
+		//this.model = new Summary();
 		this.render();
 	},
 
