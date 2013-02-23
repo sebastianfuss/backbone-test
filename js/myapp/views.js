@@ -113,4 +113,3 @@ SummaryView = Backbone.View.extend({
 	}
 
 });
-
