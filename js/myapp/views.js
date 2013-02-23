@@ -120,5 +120,6 @@ SummaryView = Backbone.View.extend({
 
 document.ready = function () {
 	person = new Person();
-	person_view = new PersonView({ el: $("#container") , model : person});
+	person_view = new PersonView({ el: $("#container") , model : person})
+};
 
