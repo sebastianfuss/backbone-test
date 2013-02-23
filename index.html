@@ -5,9 +5,41 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/underscore.js"></script>
     <script type="text/javascript" src="js/backbone.js"></script>
-    <script type="text/template" id="address_template" src="js/myapp/templates/addressview.js"></script>
-    <script type="text/template" id="person_template" src="js/myapp/templates/personview.js"></script>
-    <script type="text/template" id="summary_template" src="js/myapp/templates/summaryview.js"></script>
+    <script type="text/template" id="address_template">
+        <label for="adr_land">Land</label>
+        <input type="text" id="adr_land"/>
+
+        <label for="adr_street">Str. und Hausnummer</label>
+        <input type="text" id="adr_street"/>
+
+        <label for="adr_zipcode">Plz</label>
+        <input type="text" id="adr_zipcode"/>
+
+        <label for="adr_city">Ort</label>
+        <input type="text" id="adr_city"/>
+
+        <label for="adr_livingsince">Wohnhaft seit</label>
+        <input type="text" id="adr_livingsince"/>
+
+        <input type="button" id="next" value="Weiter"/>
+    </script>
+    <script type="text/template" id="person_template">
+        <label for="p_surename">Name</label>
+        <input type="text" id="p_surename"/>
+
+        <label for="p_firstname">Vorname</label>
+        <input type="text" id="p_birthday"/>
+
+        <label for="p_birthday">Geburtsdatum</label>
+        <input type="text" id="p_birthday"/>
+
+        <label for="p_creditcaardnumber">Kreditkartennummer</label>
+        <input type="text" id="p_creditcardnumber"/>
+
+        <input type="button" id="next" value="Weiter"/>
+    </script>
+    <script type="text/template" id="summary_template">
+    </script>
     <script type="text/javascript" src="js/myapp/models.js"></script>
     <script type="text/javascript" src="js/myapp/views.js"></script>
 </head>
