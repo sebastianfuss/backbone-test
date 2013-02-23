@@ -20,6 +20,14 @@ PersonView = Backbone.View.extend({
         // Load the compiled HTML into the Backbone "el"
         this.$el.html( template );
         return this;
+    },
+
+    events : {
+    	"click #next" : "next"
+    },
+
+    next : function () {
+    	new AddressView({ el: this.el });
     }
 
 });
@@ -38,6 +46,18 @@ AddressView = Backbone.View.extend({
         return this;
     }
 
+	events : {
+    	"click #next" : "next",
+    	"click #back" : "back"
+    },
+
+    back : function () {
+    	new PersonView({ el: this.el });
+    },
+
+    next : function () {
+    	new SummaryView({ el: this.el });
+    }
 });
 
 SummaryView = Backbone.View.extend({
