@@ -10,65 +10,68 @@
     <script type="text/javascript" src="js/backbone-validation.js"></script>
     <script type="text/template" id="address_template">
         <label for="adr_land">Land</label>
-        <input type="text" id="adr_land"/>
+        <input type="text" id="adr_land" modelAttr="land"/>
 
         <label for="adr_street">Str. und Hausnummer</label>
-        <input type="text" id="adr_street"/>
+        <input type="text" id="adr_street" modelAttr="street"/>
 
         <label for="adr_zipcode">Plz</label>
-        <input type="text" id="adr_zipcode"/>
+        <input type="text" id="adr_zipcode" modelAttr="zipcode"/>
 
         <label for="adr_city">Ort</label>
-        <input type="text" id="adr_city"/>
+        <input type="text" id="adr_city" modelAttr="city"/>
 
         <label for="adr_livingsince">Wohnhaft seit</label>
-        <input type="text" id="adr_livingsince"/>
+        <input type="text" id="adr_livingsince" modelAttr="livingsince"/>
 
         <input type="button" id="back" value="Zurück"/>
         <input type="button" id="next" value="Weiter"/>
     </script>
     <script type="text/template" id="person_template">
         <label for="p_surename">Name</label>
-        <input type="text" id="p_surename"/>
+        <input type="text" id="p_surename" modelAttr="surename"/>
 
         <label for="p_firstname">Vorname</label>
-        <input type="text" id="p_firstname"/>
+        <input type="text" id="p_firstname" modelAttr="firstname"/>
 
         <label for="p_birthday">Geburtsdatum</label>
-        <input type="text" id="p_birthday"/>
+        <input type="text" id="p_birthday" modelAttr="birthday"/>
 
-        <label for="p_creditcaardnumber">Kreditkartennummer</label>
-        <input type="text" id="p_creditcardnumber"/>
+        <label for="p_creditcardnumber">Kreditkartennummer</label>
+        <input type="text" id="p_creditcardnumber" modelAttr="credicardnumber"/>
 
         <input type="button" id="next" value="Weiter"/>
+        <br/>
+        <label for="p_surename">Name</label>
+        <%= surename %>
     </script>
     <script type="text/template" id="summary_template">
         <label for="p_surename">Name</label>
-        <span class=""> <%= p_surename %> </span>
+        <span class=""> <%= surename %> </span>
 
         <label for="p_firstname">Vorname</label>
-        <span class=""> <%= p_firstname %> </span>
+        <span class=""> <%= firstname %> </span>
 
         <label for="p_birthday">Geburtsdatum</label>
-        <span class=""> <%= p_birthday %> </span>
+        <span class=""> <%= birthday %> </span>
 
-        <label for="p_creditcaardnumber">Kreditkartennummer</label>
-        <span class=""> <%= p_creditcardnumber %> </span>
+        <label for="p_creditcardnumber">Kreditkartennummer</label>
+        <span class=""> <%= creditcardnumber %> </span>
 
         <label for="adr_land">Land</label>
-        <span class=""> <%= adr_land %> </span>
+        <span class=""> <%= land %> </span>
 
         <label for="adr_street">Str. und Hausnummer</label>
-        <span class=""> <%= adr_street %> </span>
+        <span class=""> <%= street %> </span>
 
         <label for="adr_zipcode">Plz</label>
-        <span class=""> <%= adr_zipcode %> </span>
+        <span class=""> <%= zipcode %> </span>
 
         <label for="adr_city">Ort</label>
-        <span class=""> <%= adr_city %> </span>
+        <span class=""> <%= city %> </span>
 
         <label for="adr_livingsince">Wohnhaft seit</label>
-        <span class=""> <%= adr_livingsince %> </span>
+        <span class=""> <%= livingsince %> </span>
 
         <input type="button" id="back" value="Zurück"/>
     </script>
@@ -76,6 +79,7 @@
     <script type="text/javascript" src="js/myapp/views.js"></script>
     <script>
         document.ready = function () {
+            Backbone.ModelBinding.Configuration.configureBindingAttributes({text: "modelAttr"});
             person_view = new PersonView({ el: $("#container") });
 
         }
