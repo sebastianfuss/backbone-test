@@ -76,6 +76,16 @@ PersonView = Backbone.View.extend({
     	this.model.on("validated:valid", this.valid, this);
     	this.model.on("validated:invalid", this.invalid, this);
 
+        var picker = new Pikaday(
+            {
+                field: $('#p_birthday')[0],
+                firstDay: 1,
+                format: 'DD.MM.YYYY',
+                minDate: new Date('2000-01-01'),
+                maxDate: new Date('2020-12-31'),
+                yearRange: [2000,2020]
+            });
+
         return this;
     },
 
@@ -144,6 +154,17 @@ AddressView = Backbone.View.extend({
     	Backbone.ModelBinding.bind(this);
     	// validation
     	Backbone.Validation.bind(this);
+
+        var picker = new Pikaday(
+            {
+                field: $('#adr_livingsince')[0],
+                firstDay: 1,
+                format: 'DD.MM.YYYY',
+                minDate: new Date('2000-01-01'),
+                maxDate: new Date('2020-12-31'),
+                yearRange: [2000,2020]
+            });
+
         return this;
     },
 
