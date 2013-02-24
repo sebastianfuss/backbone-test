@@ -47,8 +47,8 @@
             </div>
         </div>
 
-        <input type="button" id="back" value="Zurück"/>
-        <input type="button" id="next" value="Weiter"/>
+        <a href="#/person" id="back">Zurück</a>
+        <a href="#/summary" id="next">Weiter</a>
     </form>
     </script>
     <script type="text/template" id="person_template">
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <input type="button" id="next" value="Weiter"/>
+        <a href="#/address" id="next">Weiter</a>
     </form>
     </script>
     <script type="text/template" id="summary_template">
@@ -117,15 +117,16 @@
         <label for="adr_livingsince">Wohnhaft seit</label>
         <span class=""> <%= livingsince %> </span>
 
-        <input type="button" id="back" value="Zurück"/>
+        <a href="#/address" id="back">Zurück</a>
     </script>
     <script type="text/javascript" src="js/myapp/models.js"></script>
     <script type="text/javascript" src="js/myapp/views.js"></script>
     <script>
         document.ready = function () {
             Backbone.ModelBinding.Configuration.configureBindingAttributes({text: "modelAttr"});
-            person_view = new PersonView({ el: $("#container") });
-
+            //person_view = new PersonView({ el: $("#container") });
+            var router = new AppRouter();
+            Backbone.history.start();
         }
     </script>
 </head>

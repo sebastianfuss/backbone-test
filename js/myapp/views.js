@@ -44,12 +44,12 @@ PersonView = Backbone.View.extend({
 
 	// Das Aktualisieren der View wird in der "render" Funktion definiert.
 	render:function(){
-    	// Es wird das Modell in JSON umgewandelt.
+		// Es wird das Modell in JSON umgewandelt.
 	    var model = this.model.toJSON();
     	// Das Template von der View über Underscore geladen und mit den Daten vom Modell gefüllt.
-	    var template = _.template( $("#person_template").html(), model );
+    	var template = _.template( $("#person_template").html(), model );
     	// Die Daten des Templates werden anschließend dem DOM-Knoten ($el) der View hinterlegt.
-	    this.$el.html( template );
+    	$(this.el).html( template );
     	// Abschließend wird das Binding des Models auf die HTML-Elemente aufgerufen und die 
 		Backbone.ModelBinding.bind(this);
     	// Validierung ebenfalls an das HTML gehangen.
@@ -110,7 +110,7 @@ PersonView = Backbone.View.extend({
     	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
 	    this.remove();
 	    this.unbind();
-	    Backbone.Validation.unbind(view);
+	    Backbone.Validation.unbind(this);
 	    Backbone.ModelBinding.unbind(this);
 	}
 
@@ -139,7 +139,7 @@ AddressView = Backbone.View.extend({
 		// Compile the template using underscore
         var template = _.template( $("#address_template").html(), model );
         // Load the compiled HTML into the Backbone "el"
-        this.$el.html( template );
+        $(this.el).html( template );
         // execute the model bindings
     	Backbone.ModelBinding.bind(this);
     	// validation
@@ -180,7 +180,7 @@ AddressView = Backbone.View.extend({
     	// If you do not call this method when your view is being closed / removed / cleaned up, then you may end up with memory leaks and zombie views that are still responding to model change events.
 	    this.remove();
 	    this.unbind();
-	    Backbone.Validation.unbind(view);
+	    Backbone.Validation.unbind(this);
 	    Backbone.ModelBinding.unbind(this);
 	}
 });
@@ -208,7 +208,7 @@ SummaryView = Backbone.View.extend({
 		// Compile the template using underscore
         var template = _.template( $("#summary_template").html(), model );
         // Load the compiled HTML into the Backbone "el"
-        this.$el.html( template );
+        $(this.el).html( template );
         // execute the model bindings
     	Backbone.ModelBinding.bind(this);
         return this;
@@ -231,38 +231,39 @@ SummaryView = Backbone.View.extend({
 
 });
 
-AppView = function () {
- 
-   	this.showView = function(view) {
-	    if (this.currentView){
-	      this.currentView.close();
-	    }
-	 
-	    this.currentView = view;
-	    this.currentView.render();
-	 
-	    $("#content").html(this.currentView.el);
-	 }
-}
-
-Router = Backbone.Router.extend({
+AppRouter = Backbone.Router.extend({
   routes: {
     "person": "showPerson",
     "address" : "showAddress",
-    "summary" : "showSummary"
+    "summary" : "showSummary",
+    "*path" : "defaultRoute"
   },
  
   showPerson: function(){
     var view = new PersonView();
-    this.appView.showView(view);
+    this.showView(view);
   },
   showAddress: function(){
     var view = new AddressView();
-    this.appView.showView(view);
+    this.showView(view);
   },
   showSummary: function(){
     var view = new SummaryView();
-    this.appView.showView(view);
+    this.showView(view);
+  },
+  defaultRoute : function (){
+  	this.showPerson();
+  },
+
+  showView : function(view) {
+	if (this.currentView){
+		this.currentView.close();
+	}
+
+	this.currentView = view;
+	this.currentView.render();
+
+	$("#container").html(this.currentView.el);
   }
 });
 
