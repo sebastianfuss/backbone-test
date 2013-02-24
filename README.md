@@ -28,7 +28,7 @@ Das MCV Pattern wird von Backbone durch Model-Objekte (Model), HTML-Inhalt (View
 Model
 -----
 
-Unter `js/myapp/model.js` wurde das Modell erzeugt.
+Unter `js/myapp/models.js` wurde das Modell erzeugt.
 Es wurden drei Modelle erzeugt: Personenmodell, Adressmodell und Zusammmenfassungsmodell
 
 Innerhalb jedes Modells wurden "defaults" definiert, die die Grundstruktur definieren sollen.
@@ -47,6 +47,36 @@ In unserer Implementierung wurden die Daten immer im "sessionStorage" abgelegt.
 Mit einer anderen Implementierung in dem Modell der Zusammenfassung kann hier ein abschließender REST-Call erzeugt werden.
 Dies wäre zwar eine Vermischung der einzelnen Implementierungen würde aber zeigen, wie einfach eine unterschiedliche Persistenzschicht erzeugt werden kann.
 (Anm.: Da der REST-Call eine Funktion der View wäre, sollte sie auch als "Submit"-Funktion implementiert sein.)
+
+View (Controller)
+-----------------
+
+Unter `js/myapp/views.js` wurden die Controller erzeugt.
+(Anm.: Backbone bezeichnet diese Objekte als View. Innerhalb des MVC-Pattern haben wir festgestellt, 
+dass es sich eher um Controller handelt. Deshalb wird nachfolgend von Controllern gesprochen.)
+
+Jede Seite hat einen solchen Controller bekommen.
+Jeder Controller hat Events, die ihm mitgeteilt werden. Zu jedem Event werden Funktion definiert, die bei diesem Event
+ausgeführt werden sollen. Diese Funktionen werden an den Controller gehangen.
+Außerdem erhält der Controller die Informationen seines Aussehens. Dies wird in Form der "render" Funktion gemacht.
+Ziel der "render" Funktion ist die Erzeugung des HTML-Teils. D.h. bei jedem Aufruf von "render" wird von dem
+Controller der HTML-Inhalt zu der Seite erzeugt. Dies geschieht mit Underscore Templating. Dem Templating wird bei 
+Erzeugung des HTMLs auch das Modell mitgeteilt. Damit dieses Model eine Instanz ist, erzeugen wird zum Start des Controllers
+ein entsprechendes Objekt, laden seine eventuell vorhandenen Daten und weisen dem Controller das Modell zu.
+
+Die Wertzuweisung zwischen HTML und Modell wird von uns durch das 
+[Backbone Modellbinding](http://github.com/derickbailey/backbone.modelbinding)-Plugin erledigt. Das ist nicht der
+Weg der von Standard-Backbone. Wie das genau funktioniert, haben wir uns nicht angeguckt.
+
+HTML (View)
+-----------
+
+In `index.html` ist der komplette HTML Inhalt unserer Anwendung. Alle drei Seiten haben hier als "script"-Tags hinterlegte
+Templates. Diese werden durch ihre Ids von den entsprechenden Controllern angesprochen, ausgelesen und zum Erzeugen des 
+sichtbaren HTMLs genutzt.
+
+
+
 
 
 
