@@ -71,17 +71,14 @@ Address = Backbone.Model.extend({
     },
 
     sync : function (method, model, options) {
-    	console.log("sync address");
     	var resp = {};
     	switch (method) {
     		case "read" : 
-    		console.log("lade address");
     			var data = JSON.parse(window.sessionStorage.getItem("address"));
     			model = new Address(data);
     			break;
     		case "update" :
     		case "create" : 
-    			console.log("speichere address");
     			window.sessionStorage.setItem("address", JSON.stringify(model));
     			break;
     	}
