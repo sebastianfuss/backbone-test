@@ -1,7 +1,7 @@
 backbone-test
 =============
 
-Wir haben im Zuge des "Coding Wochenendes 02.2013" eine Anwendung in [Backbone.js](documentcloud/backbone) entwicklet.
+Wir haben im Zuge des "Coding Wochenendes 02.2013" eine Anwendung in [Backbone.js](/documentcloud/backbone) entwicklet.
 
 
 Anwendungsdetails
@@ -36,9 +36,9 @@ Auf diese Attribute wird in jedem Modell, die Validierung angesetzt.
 
 Im Standardfall von Backbone muss hierzu eine "validator" Funktion in das Modell gehangen werden. 
 Diese wird bei jedem "change" Event auf dem Modell aufgerufen und führt die Validierung aus.
-Da dies zu viel selbst geschriebenen Code führen würde, haben wir uns für das Plugin "[backbone-validation.js](thedersen/backbone.validation)" entschieden.
+Da dies zu viel selbst geschriebenen Code führen würde, haben wir uns für das Plugin "[backbone-validation.js](/thedersen/backbone.validation)" entschieden.
 Dies ermöglicht es Validationsregeln je Feld in "validation" zu definieren.
-Leider ist die Standard-Implementierung nicht mit unserem [Bootstrap](twitter/Bootstrap)-Layout kompatibel.
+Leider ist die Standard-Implementierung nicht mit unserem [Bootstrap](/twitter/Bootstrap)-Layout kompatibel.
 Deshalb muss der Selector sowie die "valid" und "invalid" Funktion überschrieben werden.
 
 Des Weiteren haben wir im Modell den "sync"-Mechnanismus definiert. 
