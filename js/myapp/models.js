@@ -29,7 +29,7 @@ Person = Backbone.Model.extend({
     		msg: 'Please enter your surename'
     	},
     	birthday: {
-    		pattern : /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+    		pattern : /^(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.]\d{4}$/,
     		msg: 'Please enter a valid date'
     	},
     	creditcardnumber: {
