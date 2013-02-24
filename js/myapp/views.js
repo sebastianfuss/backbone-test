@@ -99,7 +99,7 @@ PersonView = Backbone.View.extend({
     	if (this.model.isValid) {
 	    	this.model.save(this.model.toJSON(),{
 	    		"success" : function () {
-	    			var view = new AddressView({ el: that.el });
+	    			
 	    		},
 	    		"error" : function () {
 	    			console.error("Fehler beim Speichern");
@@ -177,7 +177,7 @@ AddressView = Backbone.View.extend({
     	var that = this;
     	this.model.save(this.model.toJSON(), {
 			"success" : function (model) {
-    			new PersonView({ el: that.el } );
+    			
 			},
 			"error" : function () {
     			console.error("Fehler beim Speichern");
@@ -189,7 +189,7 @@ AddressView = Backbone.View.extend({
     	var that = this;
     	this.model.save(this.model.toJSON(), {
 			"success" : function (model) {
-    			new SummaryView({ el: that.el } );
+    			
 			},
 			"error" : function () {
     			console.error("Fehler beim Speichern");
@@ -233,14 +233,6 @@ SummaryView = Backbone.View.extend({
         // execute the model bindings
     	Backbone.ModelBinding.bind(this);
         return this;
-    },
-
-	events : {
-    	"click #back" : "back"
-    },
-
-    back : function () {
-    	new AddressView({ el: that.el } );
     },
 
     close: function(){
