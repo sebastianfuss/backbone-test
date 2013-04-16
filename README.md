@@ -78,7 +78,7 @@ sichtbaren HTMLs genutzt.
 Fazit
 =====
 Anfänglich verwirrend war die Rolle der View in Backbone. 
-Hierbei ist nicht das HTMl Markup gemeint, sondern die view.js.
+Hierbei ist nicht das HTML Markup gemeint, sondern die view.js.
 Schaut man sich diese an, stellt man schnell fest, dass hier Code zu Modelbinding, Validierung, Eventdefinition und -abarbeitung enthalten ist. 
 Dinge die eher als Aufgabe eines Controller zu interpretieren wären. 
 Doch diesen gibt es in Backbone nicht.
@@ -89,8 +89,8 @@ Dennoch kann festgestellt werden, dass die view.js nicht frei von Controller-Auf
 
 Für die Umsetzung der o.g. doch relativ überschaubaren UseCases mussten weitere externe Plugins eingebunden werden. 
 Zusammenfassend waren das backbone.modellbinding, backbone-validation und underscore. 
-Das schafft einerseits Flexibilität während der Einarbeitung, hat es uns jedoch einiges an Zeit gekostet. 
-Auf der Homepage von backbone war Dokumentation und API Beschreibung zu finden, jedoch für die Umsetzung nicht ausreichend. 
+Das schafft einerseits Flexibilität, während der Einarbeitung hat es uns jedoch einiges an Zeit gekostet. 
+Auf der Homepage von backbone war Dokumentation und API Beschreibung zu finden, jedoch für die Einarbeitung und Umsetzung nicht ausreichend. 
 Insbesondere für die Einbindung der Plugins haben wir zum größten Teil auf Blogposts zurückgegriffen.
 
 Mit etwas Einarbeitungszeit und der ein oder anderen Codezeile haben wir ganz gute Ergebnisse erzielt.     
