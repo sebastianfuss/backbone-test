@@ -77,9 +77,21 @@ sichtbaren HTMLs genutzt.
 
 Fazit
 =====
-Anfänglich verwirrend war die Rolle der View in Backbone. Hierbei ist nicht das HTMl Markup gemeint, sondern die view.js Schaut man sich die view.js an, stellt man schnell fest, dass hier relativ Code zu Modelbinding, Validierung, Eventdefinition und -abarbeitung enthalten ist. Dinge, die eher als Aufgabe eines Controller zu kommen, doch diesen gibt es in Backbone nicht.
-Für Umsetzung der o.g. doch relativ überschaubaren UseCases mussten weitere externe Plugins eingebunden werden. Zusammenfassend waren das backbone.modellbinding, backbone-validation und underscore. Das schafft einerseits Flexibilität während der Einarbeitung hat es uns jedoch einiges an Zeit gekostet. 
-Auf der Homepage von backbone war Dokumentation und API Beschreibung zu finden, jedoch für die Umsetzung nicht ausreichend. Insbesondere für die Einbindung der Plugins haben wir zum größten Teil auf Blogposts zurückgegriffen.
+Anfänglich verwirrend war die Rolle der View in Backbone. 
+Hierbei ist nicht das HTMl Markup gemeint, sondern die view.js.
+Schaut man sich diese an, stellt man schnell fest, dass hier Code zu Modelbinding, Validierung, Eventdefinition und -abarbeitung enthalten ist. 
+Dinge die eher als Aufgabe eines Controller zu interpretieren wären. 
+Doch diesen gibt es in Backbone nicht.
+Man könnte hier anführen, dass der Router eine ähnliche Position einehmen kann.
+Durch die Implementierungsfreiheiten bei Backbone.js wird nicht klar, für welche Fälle welche Benutzung sinnvoll wäre.
+Innerhalb unserer Einarbeitung haben wir erst spät den Router benutzt. Was zu einer Vermischung der o.g. Aufgaben im Router und den Views führte.
+Dennoch kann festgestellt werden, dass die view.js nicht frei von Controller-Aufgaben bleiben wird.
+
+Für die Umsetzung der o.g. doch relativ überschaubaren UseCases mussten weitere externe Plugins eingebunden werden. 
+Zusammenfassend waren das backbone.modellbinding, backbone-validation und underscore. 
+Das schafft einerseits Flexibilität während der Einarbeitung, hat es uns jedoch einiges an Zeit gekostet. 
+Auf der Homepage von backbone war Dokumentation und API Beschreibung zu finden, jedoch für die Umsetzung nicht ausreichend. 
+Insbesondere für die Einbindung der Plugins haben wir zum größten Teil auf Blogposts zurückgegriffen.
 
 Mit etwas Einarbeitungszeit und der ein oder anderen Codezeile haben wir ganz gute Ergebnisse erzielt.     
 
@@ -89,7 +101,7 @@ Offene Punkte
 * Bei der Implementierung des Routings haben sich Seiteneffekte auf die Validierung ergeben. So gelangt man aktuell auch bei Validierungsfehlern auf die nachfolgende Seite. Problem: Der Router prüft das Ergebnis der Validierung nicht, sondern leitet einfach auf die nachfolgende Seite weiter. 
 * Bei einer Eingabe von "Wohnhaft seit" von unter 2 Jahren soll ein zusätzliches Adressfeld eingeblendet werden.
 * Es soll eine Dokumentation erzeugt werden
-* "Abschicken" soll einen REST-Call ausführen
+* "Abschicken" soll einen REST-Call ausführen (minimale Änderung an der save-Funktion des Models)
 * Validierung und PageFlow sollen getestet werden
 
 
