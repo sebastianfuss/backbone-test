@@ -82,8 +82,8 @@ Hierbei ist nicht das HTML Markup gemeint, sondern die view.js.
 Schaut man sich diese an, stellt man schnell fest, dass hier Code zu Modelbinding, Validierung, Eventdefinition und -abarbeitung enthalten ist. 
 Dinge die eher als Aufgabe eines Controller zu interpretieren wären. 
 Doch diesen gibt es in Backbone nicht.
-Man könnte hier anführen, dass der Router eine ähnliche Position einehmen kann.
-Durch die Implementierungsfreiheiten bei Backbone.js wird nicht klar, für welche Fälle welche Benutzung sinnvoll wäre.
+Man könnte hier anführen, dass der Router eine ähnliche Position einnehmen kann. 
+Jedoch wird durch die Implementierungsfreiheiten bei Backbone.js nicht klar, für welche Fälle welche Benutzung sinnvoll wäre.
 Innerhalb unserer Einarbeitung haben wir erst spät den Router benutzt. Was zu einer Vermischung der o.g. Aufgaben im Router und den Views führte.
 Dennoch kann festgestellt werden, dass die view.js nicht frei von Controller-Aufgaben bleiben wird.
 
